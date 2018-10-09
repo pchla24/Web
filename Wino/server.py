@@ -3,6 +3,10 @@ import os
 
 @Request.application
 def application(request):
+
+    path = request.url
+    print(path)
+
     html_file = open("index.html", "rb")
     html_content = html_file.read()
 
@@ -11,6 +15,9 @@ def application(request):
 
     image_file = open("static/wina.jpg", "rb")
     image_content = image_file.read()
+
+    if "wino.jpg" in path:
+        return Response(image_content, content_type="image/jpeg", status='200 OK')
 
     return Response(html_content, content_type="text/html", status='200 OK')
 
