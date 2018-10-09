@@ -1,0 +1,24 @@
+Tematem projektu jest zapoznanie się z protokołem HTTP, językiem znaczników HTML 5 oraz arkuszami stylów CSS.
+
+W ramach tego ćwiczenia studenci budują prosty serwer WWW udostępniający jedną, dynamiczną stronę HTML.
+
+Tak strona powinna zawierać:
+
+- obraz rastrowy (w formacie PNG, bądź JPEG),
+- link do zewnętrznej strony,
+- dwa akapity niedługiego tekstu z zaznaczonymi "wzmocnieniami",
+- stopkę (z nazwą autora, rokiem utworzenia strony),
+- sekcję z nawigacją (na przyszłość),
+- nagłówek pierwszego stopnia.
+
+Proszę postarać się wykorzystać semantyczne elementy języka znaczników HTML: <nav/>, <section/>, <header/>, <footer>. Do strony powinnien być podłączony arkusz stylów CSS odpowiadający co najmniej za: za kolor tła strony, wielkość czcionek﻿.
+
+Rzeczony serwer HTTP powinien być napisany w języku Python i powinien analizować nagłówki HTTP w celu zaserwowania odpowiedniej wersji dokumentu:
+- wersję HTML (text/html) albo tekstową (text/plain).
+
+Serwer musi też serwować arkusz stylów CSS oraz obraz.
+Należy przeprowadzić walidację W3 podanej strony HTML oraz arkusza stylów potwierdzając, że ta nie zgłasza błędów ani ostrzeżeń.
+
+Odnośniki do walidatorów:
+HTML https://validator.w3.org/﻿
+CSS http://jigsaw.w3.org/css-validator/﻿
