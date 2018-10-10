@@ -19,6 +19,9 @@ def application(request):
     if "wino.jpg" in path:
         return Response(image_content, content_type="image/jpeg", status='200 OK')
 
+    if "plain" in path:
+        return Response(html_content, content_type="text/plain", status='200 OK')
+
     return Response(html_content, content_type="text/html", status='200 OK')
 
 if __name__ == '__main__':
