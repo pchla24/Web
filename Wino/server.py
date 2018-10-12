@@ -19,6 +19,9 @@ def application(request):
     login_file = open("login.html", "rb")
     login_content = login_file.read()
 
+    js_file = open("app.js", "rb")
+    js_content = js_file.read()
+
     if "wino.jpg" in path:
         return Response(image_content, content_type="image/jpeg", status='200 OK')
 
@@ -27,6 +30,9 @@ def application(request):
 
     if "/login.html" in path:
         return Response(login_content, content_type="text/html", status='200 OK')
+
+    if "/app.js" in path:
+        return Response(js_content, content_type="application/javascript", status='200 OK')
 
     return Response(html_content, content_type="text/html", status='200 OK')
 
