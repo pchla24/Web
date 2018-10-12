@@ -16,11 +16,17 @@ def application(request):
     image_file = open("static/wina.jpg", "rb")
     image_content = image_file.read()
 
+    login_file = open("login.html", "rb")
+    login_content = login_file.read()
+
     if "wino.jpg" in path:
         return Response(image_content, content_type="image/jpeg", status='200 OK')
 
     if "plain" in path:
         return Response(html_content, content_type="text/plain", status='200 OK')
+
+    if "/login.html" in path:
+        return Response(login_content, content_type="text/html", status='200 OK')
 
     return Response(html_content, content_type="text/html", status='200 OK')
 
