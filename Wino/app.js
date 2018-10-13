@@ -3,11 +3,13 @@ confirm_password = document.getElementById("confirm_password");
 
 var passText = document.getElementById("passText");
 
+var login = document.getElementById("login");
+
 function validatePassword() {
     if (password.value != confirm_password.value) {
         confirm_password.setCustomValidity("Hasła nie są identyczne");
     } else {
-        confirm_password.setCustomValidity('');
+        confirm_password.setCustomValidity("");
     }
 }
 
@@ -45,6 +47,20 @@ function checkPassword() {
     }
 }
 
+function validateLogin() {
+    fetch("http://edi.iem.pw.edu.pl/chaberb/register/check/<" + login.value + ">")
+    .then(response => response.text())
+    .then(data => {
+        console.log(data)
+        if (data.includes("false")) {
+            console.log("Jest false")
+        } else {
+            ;
+        }
+  });
+}
+
+login.onkeyup = validateLogin;
 password.onkeyup = checkPassword;
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
