@@ -1,9 +1,9 @@
 var password = document.getElementById("password"),
 confirm_password = document.getElementById("confirm_password");
 
-var passText = document.getElementById("passText");
-
 var login = document.getElementById("login");
+
+var pesel = document.getElementById("pesel");
 
 function validatePassword() {
     if (password.value != confirm_password.value) {
@@ -60,7 +60,24 @@ function validateLogin() {
   });
 }
 
+function validatePESEL() {
+    if (pesel.value.length == 0) {
+        pesel.setCustomValidity("");
+    } else if (pesel.value.length == 11) {
+        if (pesel.value.match(/^[0-9]+$/) != null) {
+            pesel.setCustomValidity("");
+        } else { 
+            pesel.setCustomValidity("PESEL musi zawierać same cyfry");
+        }
+    } else {
+        pesel.setCustomValidity("PESEL musi składać się z 11 cyfr");
+    }
+}
+
+
 login.onkeyup = validateLogin;
 password.onkeyup = checkPassword;
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
+pesel.onkeyup = validatePESEL;
+
