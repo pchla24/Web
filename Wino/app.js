@@ -52,6 +52,7 @@ function checkPassword() {
 }
 
 function validateLogin() {
+    submit.disabled = true;
     fetch("http://edi.iem.pw.edu.pl/chaberb/register/check/<" + login.value + ">")
     .then(response => response.text())
     .then(data => {
