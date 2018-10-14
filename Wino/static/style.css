@@ -132,6 +132,13 @@ meter[value="2"]::-moz-meter-bar { background: orange; }
 meter[value="3"]::-moz-meter-bar { background: yellow; }
 meter[value="4"]::-moz-meter-bar { background: green; }
 
+#loginMessage {
+	color: red;
+	display: inline;
+	margin-left: 15px;
+	font-size: 18px;
+}
+
 
 
 
