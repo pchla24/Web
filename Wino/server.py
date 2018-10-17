@@ -38,4 +38,4 @@ def application(request):
 
 if __name__ == '__main__':
     from werkzeug.serving import run_simple
-    app = run_simple('127.0.0.1', 4444, application, static_files={'/static':'static'}).wsgi_app()
+    app = run_simple('0.0.0.0', 4444, application, static_files={'/static':'static'}).wsgi_app()
