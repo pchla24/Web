@@ -65,12 +65,16 @@ def signIn():
       if _login == splitLine[0] and check_password_hash(splitLine[2], _password):
         session['user'] = _login
         return redirect('/sawickij/z3/userHome')
+
+		return redirect('/sawickij/z3')
         
 
 @app.route('/sawickij/z3/userHome')
 def userHome():
     if session.get('user'):
       return render_template('userHome.html')
+    else:
+			return render_template('index.html')
        
 
 @app.route('/sawickij/z3/upload', methods=['POST'])
