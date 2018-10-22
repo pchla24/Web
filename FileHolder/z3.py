@@ -79,8 +79,13 @@ def userHome():
 
 @app.route('/sawickij/z3/upload', methods=['POST'])
 def upload():
-    print(request.files)
-    return "OK"
+    upload_folder = '/sawickij/z3/storage/' + session['user']
+    app.config['UPLOAD_FOLDER'] = upload_folder
+    file = request.files['file']
+    # Wywala przy wykonywaniu powyższej linii
+    #filename = secure_filename(file.filename)
+    #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return redirect('/sawickij/z3/userHome')
 
 @app.route('/sawickij/z3/logout')
 def logout():
