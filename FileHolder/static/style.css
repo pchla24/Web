@@ -217,6 +217,11 @@ input[type=submit]:hover {
     background-color: #8e23a3;
 }
 
+#userContent {
+    margin-top: 100px;
+    padding-bottom: 300px;
+}
+
 
 
 

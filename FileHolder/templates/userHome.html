@@ -4,13 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <title>FileHolder</title>
-<link rel="stylesheet" href="/static/style.css" type="text/css"/>
+<link rel="stylesheet" href="http://pi.iem.pw.edu.pl/~sawickij/static/style.css" type="text/css"/>
 </head>
 <body>
 <div id="container">
 	<header>
 		<div id="headContainer">
-			<a href="index.html"><img src="/assets/logoFH.png" alt="logo" id="logo"/></a>
+			<a href="index.html"><img src="http://pi.iem.pw.edu.pl/~sawickij/assets/logoFH.png" alt="logo" id="logo"/></a>
 			<nav>
 				<ul>
 					<li><a href="/sawickij/z3/logout">Wyloguj</a></li>
@@ -20,8 +20,15 @@
   </header>
 	<div id="userContent">
     <h1>Zalogowany jako: {{user}}</h1>
-    <h2>Moje pliki</h2>
-    <form id="addFileForm" method="POST">
+		<h2>Moje pliki</h2>
+		
+		<div><a href="{{path1}}" download>{{filename1}}</a></div>
+		<div><a href="{{path2}}" download>{{filename2}}</a></div>
+		<div><a href="{{path3}}" download>{{filename3}}</a></div>
+		<div><a href="{{path4}}" download>{{filename4}}</a></div>
+		<div><a href="{{path5}}" download>{{filename5}}</a></div>
+
+    <form id="addFileForm" method="POST" action="/sawickij/z3/upload" enctype="multipart/form-data">
       <input type="file" id="fileButton" value="Dodaj plik">
       <input type="submit" id="addFileButton" value="Dodaj plik">
 	</div>
