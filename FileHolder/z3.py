@@ -10,7 +10,10 @@ from flask import redirect
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = b'0329727 qwnsubnsb29'
+
+app.config.from_pyfile('sec.cfg')
+#app.config['SESSION_COOKIE_SECURE'] = True
+#app.config['SESSION_COOKIE_PATH'] = "/sawickij/z3"
 
 @app.route('/sawickij/z3/')
 def index():
@@ -114,10 +117,11 @@ def upload():
     username = session['user']
     userpath = 'storage/' + username + '/'
     userfiles = listUserFiles(username)
+    f = request.files['uploadedFile']
     if len(userfiles) < 5:
-      for filee in request.files:
-        f = request.files[filee]
-        f.save(userpath + secure_filename(f.filename))
+      f.save(userpath + secure_filename(f.filename))
+      return redirect('/sawickij/z3/userHome')
+    else:
       return redirect('/sawickij/z3/userHome')
 
 
@@ -134,6 +138,7 @@ def logout():
 def listUserFiles(username):
     userpath = 'storage/' + username + '/'
     return os.listdir(userpath)
+
 
 
 

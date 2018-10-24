@@ -29,8 +29,9 @@
 		<div><a href="{{path5}}" download>{{filename5}}</a></div>
 
     <form id="addFileForm" method="POST" action="/sawickij/z3/upload" enctype="multipart/form-data">
-      <input type="file" id="fileButton" value="Dodaj plik">
-      <input type="submit" id="addFileButton" value="Dodaj plik">
+      <input type="file" id="fileButton" name="uploadedFile" value="Dodaj plik">
+			<input type="submit" id="addFileButton" value="Dodaj plik">
+		</form>
 	</div>
 <footer>
 	<p class="stopka">Janusz Sawicki, 19.10.2018</p>
