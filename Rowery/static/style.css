@@ -90,12 +90,28 @@ nav a:hover::before {
   position: relative;
   margin: 590px auto;
   margin-bottom: 0px;
-  padding-top: 200px;
-  padding-bottom: 200px;
-  padding-left: 67px;
-  padding-right: 68px;
   background: #ffffff
 }
+
+.catImageleft {
+    width: 40%;
+    margin-right: 5%;
+}
+
+.catImageright {
+    width: 40%;
+    margin-left: 5%;
+}
+
+.categoryRow {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-bottom: 10%;
+
+}
+
+
 
 footer {
 width:100%;
