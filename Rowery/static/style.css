@@ -93,16 +93,6 @@ nav a:hover::before {
   background: #ffffff
 }
 
-.catImageleft {
-    width: 40%;
-    margin-right: 5%;
-}
-
-.catImageright {
-    width: 40%;
-    margin-left: 5%;
-}
-
 .categoryRow {
     margin-left: auto;
     margin-right: auto;
@@ -112,6 +102,34 @@ nav a:hover::before {
 }
 
 
+.catImageleft {
+    width: 40%;
+    margin-right: 5%;
+    
+    opacity: 1;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.catImageleft:hover {
+    opacity: 0.5;
+}
+
+
+.catImageright {
+    width: 40%;
+    margin-left: 5%;
+
+    opacity: 1;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.catImageright:hover {
+    opacity: 0.5;
+}
 
 footer {
 width:100%;
