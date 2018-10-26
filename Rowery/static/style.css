@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+
+body {
+	margin: 0px;
+	background: #ffffff;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 800;
+}
+
+#headContainer {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    background: #1c6835;
+    position: fixed;
+    top: 0%;
+    width: 100%;
+    z-index: 10;
+}
+
+header::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+#logo {
+    width: 18%;
+    float: left;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin-top: 45px;
+    display: inline-block;
+    margin-left: 90px;
+    position: relative;
+    padding-bottom: 10px;
+
+}
+
+nav a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+nav a::before {
+    content: '';
+    display: block;
+    height: 3px;
+    background-color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    width: 0%;
+    transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before {
+    width: 100%;
+}
+
+#banner {
+    top: 50px;
+    position: fixed;
+    background: #fdfdfd;
+    height: 450px;
+    width: 100%;
+}
+
+#bannerImg {
+    width: 100%;
+}
+
+#content {
+  width:90%;
+  position: relative;
+  margin: 590px auto;
+  margin-bottom: 0px;
+  padding-top: 200px;
+  padding-bottom: 200px;
+  padding-left: 67px;
+  padding-right: 68px;
+  background: #ffffff
+}
+
+footer {
+width:100%;
+  background-color:#494949;
+  position: relative;
+  padding:40px 0px;
+  left:0px;
+  bottom:0px;
+}
+
+.stopka{
+font-family:"Work Sans", sans-serif;
+font-size:20px;
+color:#ffffff;
+text-align:center;
+}
