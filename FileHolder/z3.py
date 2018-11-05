@@ -8,12 +8,19 @@ from os.path import expanduser
 from werkzeug import generate_password_hash, check_password_hash
 from flask import redirect
 from werkzeug.utils import secure_filename
+import redis
+import jwt
+import uuid
+import datetime
 
 app = Flask(__name__)
 
 app.config.from_pyfile('sec.cfg')
 #app.config['SESSION_COOKIE_SECURE'] = True
 #app.config['SESSION_COOKIE_PATH'] = "/sawickij/z3"
+jwt_secret_key = 'amdsnaiSDSFD2938hxn6vbbzx'
+
+r = redis.Redis()
 
 @app.route('/sawickij/z3/')
 def index():
@@ -64,16 +71,21 @@ def signIn():
     dataFile = open('database', 'r')
     DBcontent = dataFile.readlines()
 
-    for line in DBcontent:
-      splitLine = str(line).split(' ')
-
-      if _login == splitLine[0] and check_password_hash(splitLine[2], _password):
-        session['user'] = _login
-        return redirect('/sawickij/z3/userHome')
+    if userValidated(_login, _password):
+      session['user'] = _login
+      sid = str(uuid.uuid4())
+      token_elems = {
+			  'login': _login,
+			  'sid': sid,
+			  'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
+		  }
+      token = str(jwt.encode(token_elems,jwt_secret_key))
+      r.hset('sawickij:webapp:'+sid, 'login', _login)
+        
+      return redirect('/sawickij/z3/userHome')
 
     return redirect('/sawickij/z3/login')
-
-
+    
 
 @app.route('/sawickij/z3/userHome')
 def userHome():
@@ -138,6 +150,13 @@ def logout():
 def listUserFiles(username):
     userpath = 'storage/' + username + '/'
     return os.listdir(userpath)
+
+def userValidated(login, password):
+  realPassword = str(r.hget('sawickij:webapp:users', login))[2:-1]
+  print(realPassword)
+  return check_password_hash(realPassword, password)
+
+
 
 
 
