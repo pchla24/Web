@@ -3,6 +3,7 @@ from flask import session
 from flask import request
 from flask import render_template
 from flask import send_from_directory
+from flask import url_for
 import os
 from os.path import expanduser
 from werkzeug import generate_password_hash, check_password_hash
@@ -68,9 +69,6 @@ def signIn():
     _login = request.form['Login']
     _password = request.form['password']
 
-    dataFile = open('database', 'r')
-    DBcontent = dataFile.readlines()
-
     if userValidated(_login, _password):
       session['user'] = _login
       sid = str(uuid.uuid4())
@@ -79,10 +77,11 @@ def signIn():
 			  'sid': sid,
 			  'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
 		  }
-      token = str(jwt.encode(token_elems,jwt_secret_key))
+      token = str(jwt.encode(token_elems,jwt_secret_key))[2:-1]
       r.hset('sawickij:webapp:'+sid, 'login', _login)
+      session['sid'] = sid
         
-      return redirect('/sawickij/z3/userHome')
+      return redirect(url_for('userHome', token=token))
 
     return redirect('/sawickij/z3/login')
     
@@ -117,13 +116,13 @@ def userHome():
       
       return render_template('userHome.html', user=username, path1 = path1, path2 = path2,
         path3 = path3, path4 = path4, path5 = path5, filename1 = userfiles[0], filename2 = userfiles[1],
-        filename3 = userfiles[2], filename4 = userfiles[3], filename5 = userfiles[4])
+        filename3 = userfiles[2], filename4 = userfiles[3], filename5 = userfiles[4], token = request.args.get('token'))
 
     else:
       return redirect('/sawickij/z3')
 
        
-
+"""
 @app.route('/sawickij/z3/upload', methods=['POST'])
 def upload():
     username = session['user']
@@ -140,10 +139,13 @@ def upload():
 @app.route('/sawickij/z3/storage/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
     return send_from_directory(directory='storage', filename=filename)
-
+"""
 
 @app.route('/sawickij/z3/logout')
 def logout():
+    userToLogout = session['user']
+    sidToLogout = session['sid']
+    r.delete('sawickij:webapp:' + sidToLogout)
     session.pop('user', None)
     return redirect('/sawickij/z3')
 
@@ -153,7 +155,6 @@ def listUserFiles(username):
 
 def userValidated(login, password):
   realPassword = str(r.hget('sawickij:webapp:users', login))[2:-1]
-  print(realPassword)
   return check_password_hash(realPassword, password)
 
 
