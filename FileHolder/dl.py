@@ -33,16 +33,20 @@ def upload():
       f = request.files['uploadedFile']
       if len(userfiles) < 5:
         f.save(userpath + secure_filename(f.filename))
-        return redirect(url_for('userHome', token=token))
+        return redirect('/sawickij/z3/userHome')
       else:
-        return redirect(url_for('userHome', token=token))
+        return redirect('/sawickij/z3/userHome')
     else:
       return redirect('/sawickij/z3/logout')
 
 
 @app.route('/sawickij/dl/storage/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
-    return send_from_directory(directory='storage', filename=filename)
+    token = request.form['token']
+    if tokenVerified(token):
+      return send_from_directory(directory='storage', filename=filename)
+    else:
+      return redirect('/sawickij/z3/logout')
 
 def tokenVerified(token):
   token_parts = {}

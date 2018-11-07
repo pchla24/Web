@@ -80,8 +80,9 @@ def signIn():
       token = str(jwt.encode(token_elems,jwt_secret_key))[2:-1]
       r.hset('sawickij:webapp:'+sid, 'login', _login)
       session['sid'] = sid
+      session['token'] = token
         
-      return redirect(url_for('userHome', token=token))
+      return redirect('/sawickij/z3/userHome')
 
     return redirect('/sawickij/z3/login')
     
@@ -90,7 +91,8 @@ def signIn():
 def userHome():
     if session.get('user'):
       username = session['user']
-      userpath = 'storage/' + username + '/'
+      token = session['token']
+      userpath = '/sawickij/dl/storage/' + username + '/'
       userfiles = listUserFiles(username)
 
       userfiles += [''] * (5 - len(userfiles))
@@ -116,30 +118,11 @@ def userHome():
       
       return render_template('userHome.html', user=username, path1 = path1, path2 = path2,
         path3 = path3, path4 = path4, path5 = path5, filename1 = userfiles[0], filename2 = userfiles[1],
-        filename3 = userfiles[2], filename4 = userfiles[3], filename5 = userfiles[4], token = request.args.get('token'))
+        filename3 = userfiles[2], filename4 = userfiles[3], filename5 = userfiles[4], token = token)
 
     else:
       return redirect('/sawickij/z3')
 
-       
-"""
-@app.route('/sawickij/z3/upload', methods=['POST'])
-def upload():
-    username = session['user']
-    userpath = 'storage/' + username + '/'
-    userfiles = listUserFiles(username)
-    f = request.files['uploadedFile']
-    if len(userfiles) < 5:
-      f.save(userpath + secure_filename(f.filename))
-      return redirect('/sawickij/z3/userHome')
-    else:
-      return redirect('/sawickij/z3/userHome')
-
-
-@app.route('/sawickij/z3/storage/<path:filename>', methods=['GET', 'POST'])
-def download(filename):
-    return send_from_directory(directory='storage', filename=filename)
-"""
 
 @app.route('/sawickij/z3/logout')
 def logout():
@@ -147,6 +130,8 @@ def logout():
     sidToLogout = session['sid']
     r.delete('sawickij:webapp:' + sidToLogout)
     session.pop('user', None)
+    session.pop('sid', None)
+    session.pop('token', None)
     return redirect('/sawickij/z3')
 
 def listUserFiles(username):

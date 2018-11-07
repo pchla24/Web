@@ -21,12 +21,31 @@
 	<div id="userContent">
     <h1>Zalogowany jako: {{user}}</h1>
 		<h2>Moje pliki</h2>
-		
-		<div><a href="{{path1}}" download>{{filename1}}</a></div>
-		<div><a href="{{path2}}" download>{{filename2}}</a></div>
-		<div><a href="{{path3}}" download>{{filename3}}</a></div>
-		<div><a href="{{path4}}" download>{{filename4}}</a></div>
-		<div><a href="{{path5}}" download>{{filename5}}</a></div>
+
+		<form method="POST" action="{{path1}}" enctype="multipart/form-data">
+			<input type="submit" value="{{filename1}}">
+			<input type="hidden" name="token" value="{{token}}">
+		</form>
+
+		<form method="POST" action="{{path2}}" enctype="multipart/form-data">
+			<input type="submit" value="{{filename2}}">
+			<input type="hidden" name="token" value="{{token}}">
+		</form>
+
+		<form method="POST" action="{{path3}}" enctype="multipart/form-data">
+			<input type="submit" value="{{filename3}}">
+			<input type="hidden" name="token" value="{{token}}">
+		</form>
+
+		<form method="POST" action="{{path4}}" enctype="multipart/form-data">
+			<input type="submit" value="{{filename4}}">
+			<input type="hidden" name="token" value="{{token}}">
+		</form>
+
+		<form method="POST" action="{{path5}}" enctype="multipart/form-data">
+			<input type="submit" value="{{filename5}}">
+			<input type="hidden" name="token" value="{{token}}">
+		</form>
 
     <form id="addFileForm" method="POST" action="/sawickij/dl/upload" enctype="multipart/form-data">
 			<input type="file" id="fileButton" name="uploadedFile" value="Dodaj plik">
