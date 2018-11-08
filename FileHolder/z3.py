@@ -17,8 +17,8 @@ import datetime
 app = Flask(__name__)
 
 app.config.from_pyfile('sec.cfg')
-#app.config['SESSION_COOKIE_SECURE'] = True
-#app.config['SESSION_COOKIE_PATH'] = "/sawickij/z3"
+app.config['SESSION_COOKIE_SECURE'] = True
+
 jwt_secret_key = 'amdsnaiSDSFD2938hxn6vbbzx'
 
 r = redis.Redis()
