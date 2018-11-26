@@ -47,6 +47,21 @@ def download(filename):
     else:
       return redirect('/sawickij/z3/logout')
 
+@app.route('/sawickij/dl/storage/<string:share_token>', methods=['GET', 'POST'])
+def shareDownload(share_token):
+    share_token_parts =  decodeShareToken(share_token)
+    username = share_token_parts['username']
+    filename = share_token_parts['filename']
+    sharePath = username + '/' + filename
+
+    return send_from_directory(directory='storage', filename=sharePath, as_attachment=True)
+
+
+def decodeShareToken(share_token):
+  share_token_parts = {}
+  share_token_parts = jwt.decode(share_token, jwt_secret_key)
+  return share_token_parts
+
 def tokenVerified(token):
   token_parts = {}
   try:

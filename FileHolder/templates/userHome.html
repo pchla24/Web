@@ -10,7 +10,7 @@
 <div id="container">
 	<header>
 		<div id="headContainer">
-			<a href="index.html"><img src="http://pi.iem.pw.edu.pl/~sawickij/assets/logoFH.png" alt="logo" id="logo"/></a>
+			<a href="userHome"><img src="http://pi.iem.pw.edu.pl/~sawickij/assets/logoFH.png" alt="logo" id="logo"/></a>
 			<nav>
 				<ul>
 					<li><a href="/sawickij/z3/logout">Wyloguj</a></li>
@@ -22,36 +22,27 @@
     <h1>Zalogowany jako: {{user}}</h1>
 		<h2>Moje pliki</h2>
 
-		<form method="POST" action="{{path1}}" enctype="multipart/form-data">
-			<input type="submit" value="{{filename1}}">
+		{% for path, filename in paths_filenames %}
+		<div>
+		<form class="fileForm" method="POST" action="{{path}}" enctype="multipart/form-data">
+			<input type="submit" value="{{filename}}">
 			<input type="hidden" name="token" value="{{token}}">
 		</form>
 
-		<form method="POST" action="{{path2}}" enctype="multipart/form-data">
-			<input type="submit" value="{{filename2}}">
-			<input type="hidden" name="token" value="{{token}}">
+		<form class="fileForm" method="POST" action="/sawickij/z3/shareToken">
+			<input class="shareButton" type="submit" value="Udostępnij">
+			<input type="hidden" name="filename" value="{{filename}}">
 		</form>
-
-		<form method="POST" action="{{path3}}" enctype="multipart/form-data">
-			<input type="submit" value="{{filename3}}">
-			<input type="hidden" name="token" value="{{token}}">
-		</form>
-
-		<form method="POST" action="{{path4}}" enctype="multipart/form-data">
-			<input type="submit" value="{{filename4}}">
-			<input type="hidden" name="token" value="{{token}}">
-		</form>
-
-		<form method="POST" action="{{path5}}" enctype="multipart/form-data">
-			<input type="submit" value="{{filename5}}">
-			<input type="hidden" name="token" value="{{token}}">
-		</form>
-
+		</div>
+		
+		{% endfor %}
+		
     <form id="addFileForm" method="POST" action="/sawickij/dl/upload" enctype="multipart/form-data">
 			<input type="file" id="fileButton" name="uploadedFile" value="Dodaj plik">
 			<input type="hidden" name="token" value="{{token}}">
 			<input type="submit" id="addFileButton" value="Dodaj plik">
 		</form>
+
 	</div>
 <footer>
 	<p class="stopka">Janusz Sawicki, 19.10.2018</p>

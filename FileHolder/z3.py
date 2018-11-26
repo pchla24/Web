@@ -17,7 +17,7 @@ import datetime
 app = Flask(__name__)
 
 app.config.from_pyfile('sec.cfg')
-app.config['SESSION_COOKIE_SECURE'] = True
+#app.config['SESSION_COOKIE_SECURE'] = True
 
 jwt_secret_key = 'amdsnaiSDSFD2938hxn6vbbzx'
 
@@ -72,6 +72,7 @@ def signIn():
     if userValidated(_login, _password):
       session['user'] = _login
       sid = str(uuid.uuid4())
+
       token_elems = {
 			  'login': _login,
 			  'sid': sid,
@@ -81,6 +82,7 @@ def signIn():
       r.hset('sawickij:webapp:'+sid, 'login', _login)
       session['sid'] = sid
       session['token'] = token
+
         
       return redirect('/sawickij/z3/userHome')
 
@@ -95,33 +97,50 @@ def userHome():
       userpath = '/sawickij/dl/storage/' + username + '/'
       userfiles = listUserFiles(username)
 
-      userfiles += [''] * (5 - len(userfiles))
-
-      path1 = ''
-      path2 = ''
-      path3 = ''
-      path4 = ''
-      path5 = ''
+      paths = []
+      filenames = []
 
       if len(userfiles) == 0:
         pass
       if len(userfiles) >= 1:
         path1 = userpath + userfiles[0]
+        paths.append(path1)
+        filenames.append(userfiles[0])
       if len(userfiles) >= 2:
         path2 = userpath + userfiles[1]
+        paths.append(path2)
+        filenames.append(userfiles[1])
       if len(userfiles) >= 3:
         path3 = userpath + userfiles[2]
+        paths.append(path3)
+        filenames.append(userfiles[2])
       if len(userfiles) >= 4:
         path4 = userpath + userfiles[3]
+        paths.append(path4)
+        filenames.append(userfiles[3])
       if len(userfiles) >= 5:
         path5 = userpath + userfiles[4]
-      
-      return render_template('userHome.html', user=username, path1 = path1, path2 = path2,
-        path3 = path3, path4 = path4, path5 = path5, filename1 = userfiles[0], filename2 = userfiles[1],
-        filename3 = userfiles[2], filename4 = userfiles[3], filename5 = userfiles[4], token = token)
+        paths.append(path5)
+        filenames.append(userfiles[4])
+
+      return render_template('userHome.html', user=username, paths_filenames=zip(paths, filenames), token=token)
 
     else:
-      return redirect('/sawickij/z3')
+      return redirect('/sawickij/z3/')
+
+@app.route('/sawickij/z3/shareToken', methods=['POST'])
+def shareToken():
+    _filename = request.form['filename']
+    _username = session['user']
+
+    share_token_elems = {
+			  'username': _username,
+			  'filename': _filename
+		}
+    share_token = str(jwt.encode(share_token_elems,jwt_secret_key))[2:-1]
+    share_link = 'pi.iem.pw.edu.pl/sawickij/dl/storage/' + share_token
+
+    return render_template('shareToken.html', share_link=share_link)
 
 
 @app.route('/sawickij/z3/logout')

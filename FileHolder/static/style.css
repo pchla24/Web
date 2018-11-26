@@ -222,6 +222,11 @@ input[type=submit]:hover {
     padding-bottom: 300px;
 }
 
+.fileForm {
+    display: inline;
+}
+
+
 
 
 
