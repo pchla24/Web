@@ -26,9 +26,9 @@ r = redis.Redis()
 def upload():
     token = request.form['token']
     if tokenVerified(token):
-      username = getUserFromToken(token)
-      userpath = 'storage/' + secure_filename(username) + '/'
-      userfiles = listUserFiles(username)
+      user_id = secure_filename(getUserFromToken(token))
+      userpath = 'storage/' + secure_filename(user_id) + '/'
+      userfiles = listUserFiles(user_id)
       f = request.files['uploadedFile']
       if len(userfiles) < 5:
         f.save(userpath + secure_filename(f.filename))
@@ -50,9 +50,9 @@ def download(filename):
 @app.route('/sawickij/dl/storage/<string:share_token>', methods=['GET', 'POST'])
 def shareDownload(share_token):
     share_token_parts =  decodeShareToken(share_token)
-    username = share_token_parts['username']
+    user_id = secure_filename(share_token_parts['user_id'])
     filename = share_token_parts['filename']
-    sharePath = username + '/' + filename
+    sharePath = user_id + '/' + filename
 
     return send_from_directory(directory='storage', filename=sharePath, as_attachment=True)
 
@@ -68,7 +68,7 @@ def tokenVerified(token):
     token_parts = jwt.decode(token, jwt_secret_key)
   except jwt.ExpiredSignatureError:
     return False
-  return token_parts['login'] == str(r.hget('sawickij:webapp:' + token_parts['sid'], 'login'))[2:-1]
+  return token_parts['user_id'] == str(r.hget('sawickij:webapp:' + token_parts['sid'], 'user_id'))[2:-1]
 
 def getUserFromToken(token):
   token_parts = {}
@@ -76,8 +76,8 @@ def getUserFromToken(token):
     token_parts = jwt.decode(token, jwt_secret_key)
   except jwt.ExpiredSignatureError:
     return False
-  return token_parts['login']
+  return token_parts['user_id']
 
-def listUserFiles(username):
-  userpath = 'storage/' + username + '/'
+def listUserFiles(user_id):
+  userpath = 'storage/' + user_id + '/'
   return os.listdir(userpath)
