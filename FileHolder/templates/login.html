@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 
 <html lang="pl-PL">
+
 <head>
-<meta charset="utf-8" />
-<link rel="stylesheet" href="http://pi.iem.pw.edu.pl/~sawickij/static/style.css" type="text/css"/>
-<title>FileHolder</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/main.css" type="text/css" />
+	<title>FileHolder</title>
 </head>
-	<body>
+
+<body class="site">
+	<div class="jumbotron jumbotron-fluid bg-info p-5 m-0">
+		<div class="container">
 			<header>
-					<div id="headContainer">
-						<a href="index.html"><img src="http://pi.iem.pw.edu.pl/~sawickij/assets/logoFH.png" alt="logo" id="logo"/></a>
-						<nav>
-							<ul>
-								<li><a href="login">Zaloguj się</a></li>
-								<li><a href="register">Zarejestruj się</a></li>
-							</ul>
-						</nav>
-					</div>
-				</header>
-				<div id="accountCreated">
-          <a href="goToAuth"><button type="button" id="createUserLoginButton">Zaloguj za pomocą Auth0</button></a>
+				<div class="row">
+					<nav class="navbar text-center">
+
+						<a href="index.html" class="navbar-brand col-12 col-md-12 col-lg-3"><img src="/assets/logoFH.png" class="img-fluid"
+							 alt="logo" /></a>
+						<ul class="nav ml-auto">
+							<li class="nav-item col-12 col-md-5">
+								<a class="nav-link text-dark h3 text-center" href="login">Zaloguj się</a>
+							</li>
+							<li class="nav-item col-12 col-md-5">
+								<a class="nav-link text-dark h3 text-center" href="register">Zarejestruj się</a>
+							</li>
+						</ul>
+
+					</nav>
 				</div>
-      <footer>
-				<p class="stopka">Janusz Sawicki, 06.10.2018</p>
-      </footer>
-      <script type="text/javascript" src="http://pi.iem.pw.edu.pl/~sawickij/static/app.js"></script>
-    </body>
+			</header>
+		</div>
+	</div>
+	<div class="container site-content text-center">
+		<a href="goToAuth"><button type="button" class="btn btn-outline-primary btn-lg centerButton">Zaloguj za pomocą Auth0</button></a>
+	</div>
+	<footer class="page-footer bg-info text-center p-5">
+		<p class="h5">Janusz Sawicki, 19.10.2018</p>
+	</footer>
+</body>
+
 </html>

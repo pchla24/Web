@@ -7,3 +7,8 @@
 .site-content {
   flex: 1;
 }
+
+.centerButton {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
