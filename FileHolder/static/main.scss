@@ -1,0 +1,40 @@
+@import "myBootstrap/functions";
+@import "myBootstrap/variables";
+@import "myBootstrap/mixins";
+
+@import "myBootstrap/buttons";
+@import "myBootstrap/type";
+@import "myBootstrap/images";
+@import "myBootstrap/jumbotron";
+@import "myBootstrap/nav";
+@import "myBootstrap/navbar";
+@import "myBootstrap/grid";
+@import "myBootstrap/reboot";
+@import "myBootstrap/utilities";
+@import "myBootstrap/forms";
+
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
+}
+
+.centerButton {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.shareLinkContent {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.fileForm {
+  display: inline;
+}
