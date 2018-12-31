@@ -12,3 +12,13 @@
   margin-top: 10%;
   margin-bottom: 10%;
 }
+
+.shareLinkContent {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.fileForm {
+  display: inline;
+}
