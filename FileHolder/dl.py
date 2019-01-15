@@ -13,6 +13,8 @@ import redis
 import jwt
 import uuid
 import datetime
+import pika
+import json
 
 app = Flask(__name__)
 
@@ -32,6 +34,7 @@ def upload():
       f = request.files['uploadedFile']
       if len(userfiles) < 5:
         f.save(userpath + secure_filename(f.filename))
+        sendToConsumer(user_id,userpath,secure_filename(f.filename))
         return redirect('/sawickij/z3/userHome')
       else:
         return redirect('/sawickij/z3/userHome')
@@ -81,3 +84,22 @@ def getUserFromToken(token):
 def listUserFiles(user_id):
   userpath = 'storage/' + user_id + '/'
   return os.listdir(userpath)
+
+def sendToConsumer(user_id,userpath,filename):
+  if (filename.endswith('.png') or filename.endswith('.jpg')):
+    exchange = 'sawickij'
+    exchange_type = 'direct'
+    routing_key = 'sawickij-thumbs'
+
+    body ='{}'.format(json.dumps({'user_id': user_id, 'userpath': userpath, 'filename': filename}))
+
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    channel = connection.channel()
+
+    channel.exchange_declare(exchange=exchange,
+                      exchange_type=exchange_type)
+    channel.basic_publish(exchange=exchange,
+                  routing_key=routing_key,
+                  body=body)
+    print("Sent '{}'".format(body))
+    connection.close()
