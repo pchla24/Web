@@ -175,7 +175,7 @@ def userHome():
         path = userpath + userfile
         paths.append(path)
       
-    return render_template('userHome.html', user=username, paths_filenames=zip(paths, userfiles), token=token)
+    return render_template('userHome.html', user=username, paths_filenames=zip(paths, userfiles), token=token, user_id=user_id)
 
 
 @app.route('/sawickij/z3/shareToken', methods=['POST'])

@@ -34,7 +34,8 @@
 		<h2>Moje pliki</h2>
 
 		{% for path, filename in paths_filenames %}
-		<div>
+		<div class="fileRow">
+			<img src="https://pi.iem.pw.edu.pl/~sawickij/thumbnails/{{user_id}}/{{filename}}" class="thumbnail" onerror="this.src='https://pi.iem.pw.edu.pl/~sawickij/assets/default.jpg'">
 			<form class="fileForm" method="POST" action="{{path}}" enctype="multipart/form-data">
 				<input type="submit" class="btn btn-outline-primary" value="{{filename}}">
 				<input type="hidden" name="token" value="{{token}}">

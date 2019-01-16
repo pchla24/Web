@@ -17,7 +17,7 @@ def callback(ch, method, properties, body):
     print("Recieved {}".format(msg_json))
     msg = json.loads(msg_json)
     os.system("convert -resize 64x64! {} {}".format(msg['userpath']+msg['filename'],
-    "storage/thumbnails/"+msg['user_id']+'/'+msg['filename']))
+    "/home/sawickij/www/thumbnails/"+msg['user_id']+'/'+msg['filename']))
     channel.basic_ack(delivery_tag=method.delivery_tag)
 
 #channel.basic_qos(prefetch_count=1)
